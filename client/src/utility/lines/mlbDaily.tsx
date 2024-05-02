@@ -1,15 +1,15 @@
 async function getMlbDaily() {
-  export interface gameData{
-    id: String
-    teams: String
-    homeML: String
-    awayML: String
-    homeSpread: String
-    awaySpread: String
-    homeSpreadOdds: String
-    awaySpreadOdds: String
-    over: String
-    under: String
+  interface gameData {
+    id: string;
+    teams: string;
+    homeML: string;
+    awayML: string;
+    homeSpread: string;
+    awaySpread: string;
+    homeSpreadOdds: string;
+    awaySpreadOdds: string;
+    over: string;
+    under: string;
   }
 
   const response = await fetch(
@@ -22,10 +22,10 @@ async function getMlbDaily() {
     }
   );
   const result = await response.json();
-  // console.log("result is: ", JSON.stringify(result));
-  var newGameData : gameData;
-  result.forEach(element =>{
-  })
+  const numberOfGames = result["items"].length;
+  // let newGameData: gameData;
+  for (let i = 0; i < numberOfGames; i++) {
+    console.log(JSON.stringify(result["items"][i]["$ref"]));
   }
 }
 
