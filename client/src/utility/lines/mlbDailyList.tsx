@@ -1,17 +1,5 @@
+import oddsDaily from "./oddsDaily";
 async function getMlbDaily() {
-  interface gameData {
-    id: string;
-    teams: string;
-    homeML: string;
-    awayML: string;
-    homeSpread: string;
-    awaySpread: string;
-    homeSpreadOdds: string;
-    awaySpreadOdds: string;
-    over: string;
-    under: string;
-  }
-
   const response = await fetch(
     "http://sports.core.api.espn.com/v2/sports/baseball/leagues/mlb/events?lang=en&region=us",
     {
@@ -25,7 +13,7 @@ async function getMlbDaily() {
   const numberOfGames = result["items"].length;
   // let newGameData: gameData;
   for (let i = 0; i < numberOfGames; i++) {
-    console.log(JSON.stringify(result["items"][i]["$ref"]));
+    oddsDaily(result["items"][i]["$ref"]);
   }
 }
 

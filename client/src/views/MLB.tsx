@@ -1,4 +1,4 @@
-import getMlbDaily from "../utility/lines/mlbDaily";
+import getMlbDaily from "../utility/lines/mlbDailyList";
 
 function MlbLines() {
   getMlbDaily();
