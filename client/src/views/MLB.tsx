@@ -18,21 +18,60 @@ function MlbLines() {
   }, []);
 
   return (
-    <div>
-      {dailyLines.map((element) => (
-        <ul key={element.id}>
-          <li>Teams: {element.teams}</li>
-          <li>Home ML: {element.homeML}</li>
-          <li>Away ML: {element.awayML}</li>
-          <li>Home Spread: {element.homeSpread}</li>
-          <li>Away Spread: {element.awaySpread}</li>
-          <li>Home Spread Odds: {element.homeSpreadOdds}</li>
-          <li>Away Spread Odds: {element.awaySpreadOdds}</li>
-          <li>Over/Under: {element.overUnder}</li>
-          <li>Over Odds: {element.overOdds}</li>
-          <li>Under Odds: {element.underOdds}</li>
-        </ul>
-      ))}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateRows: "repeat(2, 1fr)",
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gap: "10px",
+      }}
+    >
+      {dailyLines.map((element) => {
+        const [awayTeam, homeTeam] = element.teams.split(" @ ");
+
+        // Check if any required fields are missing or empty
+        if (
+          !element.homeML ||
+          !element.homeSpread ||
+          !element.homeSpreadOdds ||
+          !element.overUnder ||
+          !element.overOdds ||
+          !element.awayML ||
+          !element.awaySpread ||
+          !element.awaySpreadOdds ||
+          !element.underOdds
+        ) {
+          return null; // Skip rendering this game
+        }
+
+        return (
+          <div
+            key={element.id}
+            style={{ border: "1px solid #ccc", padding: "10px" }}
+          >
+            <div>
+              <h5>{homeTeam}</h5>
+              <button>Money Line: {element.homeML}</button>
+              <button>
+                Run Line: {element.homeSpread} ({element.homeSpreadOdds})
+              </button>
+              <button>
+                O {element.overUnder} ({element.overOdds})
+              </button>
+            </div>
+            <div>
+              <h5>{awayTeam}</h5>
+              <button>Money Line: {element.awayML}</button>
+              <button>
+                Run Line: {element.awaySpread} ({element.awaySpreadOdds})
+              </button>
+              <button>
+                U {element.overUnder} ({element.underOdds})
+              </button>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
