@@ -46,28 +46,58 @@ function MlbLines() {
 
         return (
           <div
+            className="teamOdds"
             key={element.id}
-            style={{ border: "1px solid #ccc", padding: "10px" }}
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
-            <div>
-              <h5>{homeTeam}</h5>
-              <button>Money Line: {element.homeML}</button>
-              <button>
-                Run Line: {element.homeSpread} ({element.homeSpreadOdds})
-              </button>
-              <button>
-                O {element.overUnder} ({element.overOdds})
-              </button>
+            {/* Header row */}
+            <div
+              style={{
+                gridColumn: "1 / span 4",
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                justifyContent: "center",
+              }}
+            >
+              <div></div> {/* Empty cell */}
+              <div>Money Line</div>
+              <div>Run Line</div>
+              <div>Over/Under</div>
             </div>
-            <div>
+            <div
+              style={{
+                marginBottom: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <h5>{homeTeam}</h5>
+              <div>
+                <button>{element.homeML}</button>
+                <button>
+                  {element.homeSpread} ({element.homeSpreadOdds})
+                </button>
+                <button>
+                  O {element.overUnder} ({element.overOdds})
+                </button>
+              </div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h5>{awayTeam}</h5>
-              <button>Money Line: {element.awayML}</button>
-              <button>
-                Run Line: {element.awaySpread} ({element.awaySpreadOdds})
-              </button>
-              <button>
-                U {element.overUnder} ({element.underOdds})
-              </button>
+              <div>
+                <button>{element.awayML}</button>
+                <button>
+                  {element.awaySpread} ({element.awaySpreadOdds})
+                </button>
+                <button>
+                  U {element.overUnder} ({element.underOdds})
+                </button>
+              </div>
             </div>
           </div>
         );
