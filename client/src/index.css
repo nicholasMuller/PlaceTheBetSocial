@@ -5,6 +5,16 @@
   width: 80%;
   margin: auto;
 }
-.teamOdds {
-  white-space: nowrap;
+
+button {
+  width: 100px;
+}
+
+h5 {
+  width: 100px;
+}
+
+.headerRow * {
+  width: 100px;
+  text-align: center;
 }

@@ -22,8 +22,8 @@ function MlbLines() {
       style={{
         display: "grid",
         gridTemplateRows: "repeat(2, 1fr)",
-        gridTemplateColumns: "repeat(4, 1fr)",
-        gap: "10px",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gap: "30px",
       }}
     >
       {dailyLines.map((element) => {
@@ -57,15 +57,15 @@ function MlbLines() {
           >
             {/* Header row */}
             <div
+              className="headerRow"
               style={{
-                gridColumn: "1 / span 4",
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                justifyContent: "center",
+                marginBottom: "10px",
+                display: "flex",
+                justifyContent: "space-around",
               }}
             >
               <div></div> {/* Empty cell */}
-              <div>Money Line</div>
+              <div>ML</div>
               <div>Run Line</div>
               <div>Over/Under</div>
             </div>
@@ -73,31 +73,32 @@ function MlbLines() {
               style={{
                 marginBottom: "10px",
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-around",
               }}
             >
               <h5>{homeTeam}</h5>
-              <div>
-                <button>{element.homeML}</button>
-                <button>
-                  {element.homeSpread} ({element.homeSpreadOdds})
-                </button>
-                <button>
-                  O {element.overUnder} ({element.overOdds})
-                </button>
-              </div>
+              <button>{element.homeML}</button>
+              <button>
+                {element.homeSpread} ({element.homeSpreadOdds})
+              </button>
+              <button>
+                O {element.overUnder} ({element.overOdds})
+              </button>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
               <h5>{awayTeam}</h5>
-              <div>
-                <button>{element.awayML}</button>
-                <button>
-                  {element.awaySpread} ({element.awaySpreadOdds})
-                </button>
-                <button>
-                  U {element.overUnder} ({element.underOdds})
-                </button>
-              </div>
+              <button>{element.awayML}</button>
+              <button>
+                {element.awaySpread} ({element.awaySpreadOdds})
+              </button>
+              <button>
+                U {element.overUnder} ({element.underOdds})
+              </button>
             </div>
           </div>
         );
