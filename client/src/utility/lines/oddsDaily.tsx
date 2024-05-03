@@ -25,7 +25,7 @@ async function oddsDaily(url: string) {
   newGameData.id = result["id"];
   newGameData.teams = result["shortName"];
   getOdds(newGameData, result["competitions"][0]["odds"]["$ref"]);
-  console.log(newGameData);
+  return newGameData;
 }
 
 async function getOdds(newGameData: gameData, url: string) {

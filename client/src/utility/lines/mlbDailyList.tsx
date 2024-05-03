@@ -11,10 +11,11 @@ async function getMlbDaily() {
   );
   const result = await response.json();
   const numberOfGames = result["items"].length;
-  // let newGameData: gameData;
+  const dailyLines = [];
   for (let i = 0; i < numberOfGames; i++) {
-    oddsDaily(result["items"][i]["$ref"]);
+    dailyLines.push(await oddsDaily(result["items"][i]["$ref"]));
   }
+  return dailyLines;
 }
 
 export default getMlbDaily;
