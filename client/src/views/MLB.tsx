@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import getMlbDaily, { MlbDailyLine } from "../utility/lines/mlbDailyList";
+import BetButton from "../components/BetButton";
 
 function MlbLines() {
   const [dailyLines, setDailyLines] = useState<MlbDailyLine[]>([]);
@@ -22,7 +23,7 @@ function MlbLines() {
       style={{
         display: "grid",
         gridTemplateRows: "repeat(2, 1fr)",
-        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateColumns: "repeat(3, 1fr)",
         gap: "30px",
       }}
     >
@@ -46,7 +47,6 @@ function MlbLines() {
 
         return (
           <div
-            className="teamOdds"
             key={element.id}
             style={{
               border: "1px solid #ccc",
@@ -56,41 +56,24 @@ function MlbLines() {
             }}
           >
             {/* Header row */}
-            <div
-              className="headerRow"
-              style={{
-                marginBottom: "10px",
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
+
+            <div className="mlbTable">
               <div></div> {/* Empty cell */}
               <div>ML</div>
               <div>Run Line</div>
               <div>Over/Under</div>
             </div>
-            <div
-              style={{
-                marginBottom: "10px",
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
+            <div className="mlbTable">
               <h5>{homeTeam}</h5>
-              <button>{element.homeML}</button>
-              <button>
-                {element.homeSpread} ({element.homeSpreadOdds})
-              </button>
-              <button>
-                O {element.overUnder} ({element.overOdds})
-              </button>
+              <BetButton bet={element.homeML} />
+              <BetButton
+                bet={element.homeSpread + "(" + element.homeSpreadOdds + ")"}
+              />
+              <BetButton
+                bet={"O" + element.overUnder + "(" + element.overOdds + ")"}
+              />
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
+            <div className="mlbTable">
               <h5>{awayTeam}</h5>
               <button>{element.awayML}</button>
               <button>
