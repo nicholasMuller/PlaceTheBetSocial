@@ -6,26 +6,57 @@
   margin: auto;
 }
 
-button {
-  width: 100px;
+.grid-container {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 }
 
-h5 {
-  width: 100px;
+.grid-item {
+  border: 1px solid #ccc;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.headerRow * {
-  width: 100px;
-  text-align: center;
-}
-
-.mlbTable * {
-  float: left;
-  width: auto;
-  margin-right: 5px;
-  margin-bottom: 10px;
+.row {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+.column {
+  white-space: nowrap;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column h5 {
+  margin: 0;
+}
+
+.btn-sml {
+  white-space: nowrap;
+  width: 100px; /* Set a fixed width to ensure uniform size */
+  padding: 5px;
+  font-size: 12px;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   text-align: center;
-  border-radius: 5px;
+}
+
+.headerColumn {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
 }

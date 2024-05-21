@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
 interface BetButtonProps {
   bet: string;
 }
@@ -12,14 +11,14 @@ const BetButton: React.FC<BetButtonProps> = ({ bet }) => {
   };
 
   return (
-    <div>
-      <button
-        className={`btn ${isSelected ? "btn-primary" : "btn-secondary"}`}
-        onClick={toggleSelection}
-      >
-        {bet}
-      </button>
-    </div>
+    <button
+      className={`btn btn-sm btn-sml ${
+        isSelected ? "btn-primary" : "btn-secondary"
+      }`}
+      onClick={toggleSelection}
+    >
+      {bet}
+    </button>
   );
 };
 
