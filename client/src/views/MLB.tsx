@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import getMlbDaily from "../utility/lines/mlbDailyList";
 import BetButton from "../components/BetButton";
-import {gameData} from "../utility/lines/oddsDaily"
+import { gameData } from "../utility/lines/oddsDaily";
 import "../index.css"; // Make sure the CSS file is correctly imported
 
+export interface SelectedBet {
+  id: string;
+  betType: string;
+  odds: string;
+}
+
 const MlbLines: React.FC = () => {
-  let [dailyLines, setDailyLines] = useState<gameData[]>([]);
+  const [dailyLines, setDailyLines] = useState<gameData[]>([]);
+  const [selectedBets, setSelectedBets] = useState<SelectedBet[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +26,23 @@ const MlbLines: React.FC = () => {
 
     fetchData();
   }, []);
+
+  const handleBetSelection = (bet: SelectedBet, isSelected: boolean) => {
+    setSelectedBets((prev) => {
+      if (isSelected) {
+        // Add bet
+        return [...prev, bet];
+      } else {
+        // Remove bet
+        return prev.filter((b) => !(b.id === bet.id && b.betType === bet.betType && b.odds === bet.odds));
+      }
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log("Selected Bets:", selectedBets);
+    // You can now send this array to your backend or process it as needed
+  };
 
   return (
     <div className="grid-container">
@@ -39,7 +63,6 @@ const MlbLines: React.FC = () => {
           return null; // Skip rendering this game
         }
 
-        console.log(dailyLines)
         return (
           <div key={element.id} className="grid-item">
             <div className="headerRow">
@@ -51,38 +74,61 @@ const MlbLines: React.FC = () => {
             <div className="row">
               <p className="column col-3">{homeTeam}</p>
               <div className="column col-3">
-                <BetButton bet={element.homeML} />
-              </div>
-              <div className="column col-3">
                 <BetButton
-                  bet={element.homeSpread + "(" + element.homeSpreadOdds + ")"}
+                  id={element.id}
+                  betType="ML"
+                  odds={element.homeML}
+                  onSelect={(bet, isSelected) => handleBetSelection(bet, isSelected)}
                 />
               </div>
               <div className="column col-3">
                 <BetButton
-                  bet={"O " + element.overUnder + "(" + element.overOdds + ")"}
+                  id={element.id}
+                  betType="Run Line"
+                  odds={element.homeSpread + "(" + element.homeSpreadOdds + ")"}
+                  onSelect={(bet, isSelected) => handleBetSelection(bet, isSelected)}
+                />
+              </div>
+              <div className="column col-3">
+                <BetButton
+                  id={element.id}
+                  betType="Over"
+                  odds={element.overUnder + "(" + element.overOdds + ")"}
+                  onSelect={(bet, isSelected) => handleBetSelection(bet, isSelected)}
                 />
               </div>
             </div>
             <div className="row">
               <p className="column col-3">{awayTeam}</p>
               <div className="column col-3">
-                <BetButton bet={element.awayML} />
-              </div>
-              <div className="column col-3">
                 <BetButton
-                  bet={element.awaySpread + "(" + element.awaySpreadOdds + ")"}
+                  id={element.id}
+                  betType="ML"
+                  odds={element.awayML}
+                  onSelect={(bet, isSelected) => handleBetSelection(bet, isSelected)}
                 />
               </div>
               <div className="column col-3">
                 <BetButton
-                  bet={"U " + element.overUnder + "(" + element.underOdds + ")"}
+                  id={element.id}
+                  betType="Run Line"
+                  odds={element.awaySpread + "(" + element.awaySpreadOdds + ")"}
+                  onSelect={(bet, isSelected) => handleBetSelection(bet, isSelected)}
+                />
+              </div>
+              <div className="column col-3">
+                <BetButton
+                  id={element.id}
+                  betType="Under"
+                  odds={element.overUnder + "(" + element.underOdds + ")"}
+                  onSelect={(bet, isSelected) => handleBetSelection(bet, isSelected)}
                 />
               </div>
             </div>
           </div>
         );
       })}
+      <button onClick={handleSubmit}>Submit Bets</button>
     </div>
   );
 };

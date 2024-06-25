@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { SelectedBet } from "../views/MLB";
+
 interface BetButtonProps {
-  bet: string;
+  id: string;
+  betType: string;
+  odds: string;
+  onSelect: (bet: SelectedBet, isSelected: boolean) => void;
 }
 
-const BetButton: React.FC<BetButtonProps> = ({ bet }) => {
+const BetButton: React.FC<BetButtonProps> = ({ id, betType, odds, onSelect }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const toggleSelection = () => {
     setIsSelected(!isSelected);
+    onSelect({ id, betType, odds }, !isSelected); // Notify parent of the selection state
   };
 
   return (
@@ -17,9 +23,9 @@ const BetButton: React.FC<BetButtonProps> = ({ bet }) => {
       }`}
       onClick={toggleSelection}
     >
-      {bet}
+      {`${odds}`}
     </button>
   );
 };
 
-export default BetButton;
+export default BetButton; 
