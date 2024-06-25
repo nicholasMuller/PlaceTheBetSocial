@@ -1,4 +1,4 @@
-interface gameData {
+export interface gameData {
   id: string;
   teams: string;
   homeML: string;
@@ -19,12 +19,12 @@ async function oddsDaily(url: string) {
       Accept: "application/json",
     },
   });
-  const result = await response.json();
+  let result = await response.json();
   //   console.log(JSON.stringify(result));
   const newGameData = {} as gameData;
   newGameData.id = result["id"];
   newGameData.teams = result["shortName"];
-  getOdds(newGameData, result["competitions"][0]["odds"]["$ref"]);
+  await getOdds(newGameData, result["competitions"][0]["odds"]["$ref"]);
   return newGameData;
 }
 
@@ -35,7 +35,7 @@ async function getOdds(newGameData: gameData, url: string) {
       Accept: "application/json",
     },
   });
-  const result = await response.json();
+  let result = await response.json();
 
   newGameData.homeML = result["items"][0]["homeTeamOdds"]["moneyLine"];
   newGameData.awayML = result["items"][0]["awayTeamOdds"]["moneyLine"];

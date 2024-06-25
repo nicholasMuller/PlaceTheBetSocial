@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import getMlbDaily, { MlbDailyLine } from "../utility/lines/mlbDailyList";
+import getMlbDaily from "../utility/lines/mlbDailyList";
 import BetButton from "../components/BetButton";
+import {gameData} from "../utility/lines/oddsDaily"
 import "../index.css"; // Make sure the CSS file is correctly imported
 
 const MlbLines: React.FC = () => {
-  const [dailyLines, setDailyLines] = useState<MlbDailyLine[]>([]);
+  let [dailyLines, setDailyLines] = useState<gameData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +39,7 @@ const MlbLines: React.FC = () => {
           return null; // Skip rendering this game
         }
 
+        console.log(dailyLines)
         return (
           <div key={element.id} className="grid-item">
             <div className="headerRow">
