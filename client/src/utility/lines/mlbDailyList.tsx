@@ -13,7 +13,9 @@ async function getMlbDaily() {
   const numberOfGames = result["items"].length;
   const dailyLines = [];
   for (let i = 0; i < numberOfGames; i++) {
-    dailyLines.push(await oddsDaily(result["items"][i]["$ref"]));
+    if(result["items"][i]["$ref"]){
+      dailyLines.push(await oddsDaily(result["items"][i]["$ref"]));
+    }
   }
   return dailyLines;
 }
